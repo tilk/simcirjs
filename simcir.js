@@ -1344,14 +1344,19 @@ simcir.$ = function() {
         }
       });
       $ports.sort(function($p1, $p2) {
+        var o1 = controller($p1).deviceDef.order;
         var x1 = controller($p1).deviceDef.x;
         var y1 = controller($p1).deviceDef.y;
+        var o2 = controller($p2).deviceDef.order;
         var x2 = controller($p2).deviceDef.x;
         var y2 = controller($p2).deviceDef.y;
-        if (x1 == x2) {
-          return (y1 < y2)? -1 : 1;
+        if (o1 == o2) {
+          if (x1 == x2) {
+            return y1 - y2;
+          }
+          return x1 - x2;
         }
-        return (x1 < x2)? -1 : 1;
+        return o1 - o2;
       });
       var getDesc = function(port) {
         return port? port.description : '';
